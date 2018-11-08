@@ -5,6 +5,8 @@ import com.facto.manoel.aplicacaografica.AndGraph.AGGameManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGInputManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScene;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScreenManager;
+import com.facto.manoel.aplicacaografica.AndGraph.AGSoundEffect;
+import com.facto.manoel.aplicacaografica.AndGraph.AGSoundManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGSprite;
 import com.facto.manoel.aplicacaografica.AndGraph.AGTimer;
 
@@ -16,6 +18,7 @@ public class CenaMenu extends AGScene {
     AGSprite imgexit = null;
     AGTimer tempo = null;
     AGGameManager gameManager = null;
+    int codigoSom = 0;
 
     CenaMenu(AGGameManager gameManager){
         super(gameManager);
@@ -23,6 +26,13 @@ public class CenaMenu extends AGScene {
     }
     @Override
     public void init() {
+
+        //Gerenciador de sons
+//        AGSoundManager.vrMusic.loadMusic("musica.mp3",true);
+//        AGSoundManager.vrMusic.play();
+
+
+
 
         tempo = new AGTimer(2000);
         setSceneBackgroundColor(0,0,0);

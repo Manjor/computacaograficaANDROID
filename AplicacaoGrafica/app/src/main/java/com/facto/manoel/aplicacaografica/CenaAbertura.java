@@ -3,6 +3,7 @@ package com.facto.manoel.aplicacaografica;
 import com.facto.manoel.aplicacaografica.AndGraph.AGGameManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScene;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScreenManager;
+import com.facto.manoel.aplicacaografica.AndGraph.AGSoundManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGSprite;
 import com.facto.manoel.aplicacaografica.AndGraph.AGTimer;
 
@@ -21,6 +22,8 @@ public class CenaAbertura extends AGScene
      * Sempre que a cena for exibida*/
     @Override
     public void init() {
+
+
 
         tempo = new AGTimer(3000);
         //Cria uma referencia de imagem e realiza os cortes de tamanho
