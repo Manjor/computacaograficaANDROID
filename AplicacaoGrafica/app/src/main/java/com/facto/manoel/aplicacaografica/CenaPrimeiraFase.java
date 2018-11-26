@@ -7,6 +7,9 @@ import com.facto.manoel.aplicacaografica.AndGraph.AGScreenManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGSoundManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGSprite;
 import com.facto.manoel.aplicacaografica.AndGraph.AGTimer;
+import com.facto.manoel.aplicacaografica.AndGraph.AGTouchScreen;
+
+import java.util.ArrayList;
 
 public class CenaPrimeiraFase extends AGScene {
 
@@ -23,12 +26,11 @@ public class CenaPrimeiraFase extends AGScene {
     AGGameManager agGameManager = null;
     AGSprite background = null;
     AGSprite parado = null;
-    AGSprite andando = null;
-    AGSprite atirando = null;
     AGSprite pulando = null;
     AGSprite morendo = null;
     AGSprite abaixando = null;
     AGSprite cachorrorun = null;
+    AGSprite cachorroup = null;
     AGSprite bala = null;
     float balaX = 0;
     float cachorroX = 0;
@@ -56,44 +58,24 @@ public class CenaPrimeiraFase extends AGScene {
         this.parado.vrPosition.setX(AGScreenManager.iScreenWidth * 0.10f);
         this.parado.vrPosition.setY(AGScreenManager.iScreenHeight * 0.10f);
         this.parado.addAnimation(10,true,0,7);
+        this.parado.addAnimation(5, false,25,26);
+        this.parado.addAnimation(5,false,31,32);
 
-//        this.andando = createSprite(R.mipmap.herosprite, 8,5);
-//        this.andando.setScreenPercent(20,25);
-//        this.andando.vrPosition.setX(AGScreenManager.iScreenWidth * 0.25f);
-//        this.andando.vrPosition.setY(AGScreenManager.iScreenHeight/2);
-//        this.andando.addAnimation(10,true,8,13);
-//
-//        this.atirando = createSprite(R.mipmap.herosprite, 8,5);
-//        this.atirando.setScreenPercent(20,25);
-//        this.atirando.vrPosition.setX(AGScreenManager.iScreenWidth * 0.40f);
-//        this.atirando.vrPosition.setY(AGScreenManager.iScreenHeight/2);
-//        this.atirando.addAnimation(10,true,16,21);
-//
-//        this.pulando = createSprite(R.mipmap.herosprite, 8,5);
-//        this.pulando.setScreenPercent(20,25);
-//        this.pulando.vrPosition.setX(AGScreenManager.iScreenWidth * 0.55f);
-//        this.pulando.vrPosition.setY(AGScreenManager.iScreenHeight/2);
-//        this.pulando.addAnimation(5,true,24,26);
-//
-//        this.morendo = createSprite(R.mipmap.herosprite, 8,5);
-//        this.morendo.setScreenPercent(20,25);
-//        this.morendo.vrPosition.setX(AGScreenManager.iScreenWidth * 0.70f);
-//        this.morendo.vrPosition.setY(AGScreenManager.iScreenHeight/2);
-//        this.morendo.addAnimation(5,true,27,30);
-//
-//        this.abaixando = createSprite(R.mipmap.herosprite, 8,5);
-//        this.abaixando.setScreenPercent(20,25);
-//        this.abaixando.vrPosition.setX(AGScreenManager.iScreenWidth * 0.85f);
-//        this.abaixando.vrPosition.setY(AGScreenManager.iScreenHeight/2);
-//        this.abaixando.addAnimation(5,true,31,32);
 
         this.cachorrorun = createSprite(R.mipmap.hellway, 12,1);
         this.cachorrorun.setScreenPercent(20,25);
         this.cachorrorun.vrPosition.setX(AGScreenManager.iScreenWidth * 0.85f);
         this.cachorrorun.vrPosition.setY(AGScreenManager.iScreenHeight * 0.10f);
         this.cachorroposInicial = cachorrorun.vrPosition.getX();
-
         this.cachorrorun.addAnimation(10,true,0,11);
+
+        this.cachorroup = createSprite(R.mipmap.hellup, 6,1);
+        this.cachorroup.setScreenPercent(20,25);
+        this.cachorroup.vrPosition.setX(AGScreenManager.iScreenWidth * 0.85f);
+        this.cachorroup.vrPosition.setY(AGScreenManager.iScreenHeight * 0.10f);
+        this.cachorroposInicial = cachorroup.vrPosition.getX();
+        this.cachorroup.addAnimation(10,true,0,5);
+
         this.bala = createSprite(R.mipmap.bullet, 1,1);
         this.bala.setScreenPercent(5,10);
         this.bala.vrPosition.setX(parado.vrPosition.getX() + (parado.getSpriteWidth() / 2) + (bala.getSpriteWidth() / 3));
@@ -102,6 +84,10 @@ public class CenaPrimeiraFase extends AGScene {
         this.balaposInicial =  bala.vrPosition.getX();
         this.bala.bVisible = false;
         //this.cachorrorun.addAnimation(10,true,0,11);
+        ArrayList<AGSprite> spritesCachorro = new ArrayList<>();
+
+        spritesCachorro.add(cachorrorun);
+        spritesCachorro.add(cachorroup);
     }
 
     @Override
@@ -118,6 +104,12 @@ public class CenaPrimeiraFase extends AGScene {
     @Override
     public void loop() {
 
+        if(AGInputManager.vrTouchEvents.screenDragged()){
+            this.parado.setCurrentAnimation(1);
+        }
+        if(AGInputManager.vrTouchEvents.screenDown()){
+            this.parado.setCurrentAnimation(2);
+        }
         if(bala.vrPosition.getX() >= (AGScreenManager.iScreenWidth + 20)) {
             i = 0;
             balaX = 0;
@@ -136,7 +128,6 @@ public class CenaPrimeiraFase extends AGScene {
             this.j = 0;
             cachorroX = 0;
         }
-
         if(cachorrorun.bVisible == false){
             this.tempoRespawCachorro.update();
             if(this.tempoRespawCachorro.isTimeEnded()){
