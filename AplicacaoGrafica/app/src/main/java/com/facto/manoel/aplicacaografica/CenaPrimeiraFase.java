@@ -57,9 +57,9 @@ public class CenaPrimeiraFase extends AGScene {
         this.parado.setScreenPercent(20,25);
         this.parado.vrPosition.setX(AGScreenManager.iScreenWidth * 0.10f);
         this.parado.vrPosition.setY(AGScreenManager.iScreenHeight * 0.10f);
-        this.parado.addAnimation(10,true,0,7);
-        this.parado.addAnimation(5, false,25,26);
-        this.parado.addAnimation(5,false,31,32);
+        this.parado.addAnimation(15,true,0,7);
+        this.parado.addAnimation(5,false,32,33);
+        //this.parado.addAnimation(5, true,24,26);
 
 
         this.cachorrorun = createSprite(R.mipmap.hellway, 12,1);
@@ -83,7 +83,7 @@ public class CenaPrimeiraFase extends AGScene {
 
         this.balaposInicial =  bala.vrPosition.getX();
         this.bala.bVisible = false;
-        //this.cachorrorun.addAnimation(10,true,0,11);
+        this.cachorrorun.addAnimation(10,true,0,11);
         ArrayList<AGSprite> spritesCachorro = new ArrayList<>();
 
         spritesCachorro.add(cachorrorun);
@@ -101,27 +101,52 @@ public class CenaPrimeiraFase extends AGScene {
     }
     int i = 0;
     int j = 0;
+    int direcao = 0;
     @Override
     public void loop() {
 
+        if(AGInputManager.vrTouchEvents.screenClicked()){
+            bala.bVisible = true;
+            i = 10;
+            balaX = 0;
+        }
         if(AGInputManager.vrTouchEvents.screenDragged()){
-            this.parado.setCurrentAnimation(1);
+            if(direcao == 1){
+                this.parado.setCurrentAnimation(0);
+                direcao = 0;
+            }else{
+                this.parado.setCurrentAnimation(1);
+                direcao = 1;
+            }
         }
-        if(AGInputManager.vrTouchEvents.screenDown()){
-            this.parado.setCurrentAnimation(2);
-        }
-        if(bala.vrPosition.getX() >= (AGScreenManager.iScreenWidth + 20)) {
+
+        if(bala.vrPosition.getX() >= (AGScreenManager.iScreenWidth + 10)) {
             i = 0;
             balaX = 0;
             bala.bVisible = false;
             this.bala.vrPosition.setX(this.balaposInicial);
         }
-        if(AGInputManager.vrTouchEvents.screenClicked() && bala.bVisible == false ){
-            bala.bVisible = true;
-            i = 2;
-            balaX = 0;
-        }
-        if(bala.collide(cachorrorun) && bala.bVisible == true){
+
+//        if(AGInputManager.vrTouchEvents.screenDragged()){
+//            this.parado.setCurrentAnimation(1);
+//            if(this.parado.getCurrentAnimation().isAnimationEnded()){
+//                this.parado.setCurrentAnimation(0);
+//            }
+//        }
+//        if(AGInputManager.vrTouchEvents.screenDown()){
+//            this.parado.setCurrentAnimation(2);
+//            if(this.parado.getCurrentAnimation().isAnimationEnded()){
+//                this.parado.setCurrentAnimation(0);
+//            }
+//        }
+
+//
+//        if(AGInputManager.vrTouchEvents.screenClicked() && bala.bVisible == false ){
+//            bala.bVisible = true;
+//            i = 2;
+//            balaX = 0;
+//        }
+        if(bala.collide(cachorrorun) && bala.bVisible == true && cachorrorun.bVisible == true){
             this.cachorrorun.bVisible = false;
             this.bala.bVisible = false;
             this.cachorrorun.vrPosition.setX(this.cachorroposInicial);
