@@ -42,7 +42,7 @@ public class CenaMenu extends AGScene {
         imgplay = createSprite(R.mipmap.play, 1,1);
         imgplay.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.30f);
         imgplay.setScreenPercent(10,5);
-        imgpause = createSprite(R.mipmap.pause, 1,1);
+        imgpause = createSprite(R.mipmap.pausa, 1,1);
         imgpause.setScreenPercent(10,5);
         imgpause.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.20f);
         imgexit = createSprite(R.mipmap.exit, 1,1);

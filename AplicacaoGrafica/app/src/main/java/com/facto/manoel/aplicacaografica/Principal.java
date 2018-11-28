@@ -13,6 +13,7 @@ public class Principal extends AGActivityGame {
     CenaMenu cenaMenu = null;
     CenaCreditos cenaCreditos = null;
     CenaPrimeiraFase primeiraFase = null;
+    CenaSobre cenaSobre = null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -29,7 +30,9 @@ public class Principal extends AGActivityGame {
         cenaMenu = new CenaMenu(getGameManager());
         cenaCreditos = new CenaCreditos(getGameManager());
         this.primeiraFase = new CenaPrimeiraFase(getGameManager());
+        this.cenaSobre = new CenaSobre(getGameManager());
 
+        getGameManager().addScene(this.cenaSobre);
         getGameManager().addScene(this.primeiraFase);
         //Registra as cenas no GameManager
 //        getGameManager().addScene(abertura);
