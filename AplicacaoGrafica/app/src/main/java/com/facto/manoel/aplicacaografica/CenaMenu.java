@@ -1,24 +1,19 @@
 package com.facto.manoel.aplicacaografica;
 
-import com.facto.manoel.aplicacaografica.AndGraph.AGAnimation;
 import com.facto.manoel.aplicacaografica.AndGraph.AGGameManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGInputManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScene;
 import com.facto.manoel.aplicacaografica.AndGraph.AGScreenManager;
-import com.facto.manoel.aplicacaografica.AndGraph.AGSoundEffect;
-import com.facto.manoel.aplicacaografica.AndGraph.AGSoundManager;
 import com.facto.manoel.aplicacaografica.AndGraph.AGSprite;
-import com.facto.manoel.aplicacaografica.AndGraph.AGTimer;
 
 public class CenaMenu extends AGScene {
 
-    AGSprite imglogo = null;
-    AGSprite imgplay = null;
-    AGSprite imgpause = null;
-    AGSprite imgexit = null;
-    AGTimer tempo = null;
+
     AGGameManager gameManager = null;
-    int codigoSom = 0;
+    AGSprite telaFundo = null;
+    AGSprite jogar = null;
+    AGSprite sobre = null;
+    AGSprite sair = null;
 
     CenaMenu(AGGameManager gameManager){
         super(gameManager);
@@ -27,27 +22,22 @@ public class CenaMenu extends AGScene {
     @Override
     public void init() {
 
-        //Gerenciador de sons
-//        AGSoundManager.vrMusic.loadMusic("musica.mp3",true);
-//        AGSoundManager.vrMusic.play();
+        telaFundo = createSprite(R.mipmap.inferno,1,1);
+        telaFundo.setScreenPercent(100,100);
+        telaFundo.vrPosition.setXY(AGScreenManager.iScreenWidth/2,AGScreenManager.iScreenHeight/2);
 
+        this.jogar = createSprite(R.mipmap.btnjogar,1,1);
+        this.jogar.setScreenPercent(50,25);
+        this.jogar.vrPosition.setXY(AGScreenManager.iScreenWidth/2,AGScreenManager.iScreenHeight * 0.8f);
 
+        this.sobre = createSprite(R.mipmap.btnsobre,1,1);
+        this.sobre.setScreenPercent(50,25);
+        this.sobre.vrPosition.setXY(AGScreenManager.iScreenWidth/2,AGScreenManager.iScreenHeight * 0.5f);
 
+        this.sair = createSprite(R.mipmap.btnsair,1,1);
+        this.sair.setScreenPercent(50,25);
+        this.sair.vrPosition.setXY(AGScreenManager.iScreenWidth/2,AGScreenManager.iScreenHeight * 0.2f);
 
-        tempo = new AGTimer(2000);
-        setSceneBackgroundColor(0,0,0);
-        imglogo = createSprite(R.mipmap.logo, 1,1);
-        imglogo.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.60f);
-        imglogo.setScreenPercent(100,50);
-        imgplay = createSprite(R.mipmap.play, 1,1);
-        imgplay.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.30f);
-        imgplay.setScreenPercent(10,5);
-        imgpause = createSprite(R.mipmap.pausa, 1,1);
-        imgpause.setScreenPercent(10,5);
-        imgpause.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.20f);
-        imgexit = createSprite(R.mipmap.exit, 1,1);
-        imgexit.vrPosition.setXY(AGScreenManager.iScreenWidth * 0.50f, AGScreenManager.iScreenHeight * 0.10f);
-        imgexit.setScreenPercent(10,5);
     }
 
     @Override
@@ -60,39 +50,21 @@ public class CenaMenu extends AGScene {
 
     }
 
-    float tamanho = 10;
-    float largura = 5;
-    float direcao = 1;
 
     @Override
     public void loop() {
-
-        if(imgplay.collide(AGInputManager.vrTouchEvents.getLastPosition())){
-            vrGameManager.setCurrentScene(0);
-            return;
+        if(AGInputManager.vrTouchEvents.screenClicked()){
+            if(jogar.collide(AGInputManager.vrTouchEvents.getLastPosition())){
+                gameManager.setCurrentScene(1);
+                return;
+            }
+            if(sobre.collide(AGInputManager.vrTouchEvents.getLastPosition())){
+                gameManager.setCurrentScene(2);
+                return;
+            }
+            if(sair.collide(AGInputManager.vrTouchEvents.getLastPosition())){
+                vrGameManager.vrActivity.finish();
+            }
         }
-        if(imgpause.collide(AGInputManager.vrTouchEvents.getLastPosition())){
-            vrGameManager.setCurrentScene(2);
-            return;
-        }
-        if(imgexit.collide(AGInputManager.vrTouchEvents.getLastPosition())){
-            this.gameManager.vrActivity.finish();
-        }
-//        imgplay.setScreenPercent((int)tamanho,(int)largura);
-//        //imgplay.setScreenPercent(10,5);
-//        tempo.update();
-//        if(tempo.isTimeEnded()){
-//            if(tamanho >= 40 && largura >= 20 || tamanho <= 10 && largura <= 5){
-//                direcao *= -1;
-//            }
-//        }
-//
-//
-//        tamanho += direcao * 0.4;
-//        largura += direcao * 0.4;
-//
-//        if(AGInputManager.vrTouchEvents.screenClicked()){
-//            vrGameManager.setCurrentScene(2);
-//        }
     }
 }

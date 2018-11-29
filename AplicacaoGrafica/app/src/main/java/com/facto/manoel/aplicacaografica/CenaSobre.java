@@ -52,7 +52,7 @@ public class CenaSobre extends AGScene {
     @Override
     public void loop() {
         if(this.fechar.collide(AGInputManager.vrTouchEvents.getLastPosition())){
-            vrGameManager.setCurrentScene(1);
+            vrGameManager.setCurrentScene(0);
         }
     }
 }
